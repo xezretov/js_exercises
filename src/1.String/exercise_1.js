@@ -6,7 +6,7 @@
  * isStringEmpty('abc'); => false
  * isStringEmpty(''); => true
  * isStringEmpty('   '); => true
- * isStringEmpty(); => throws error
+ * isStringEmpty(); => throws error "text must be defined"
  */
 function isStringEmpty(text) {
   // Your code here
@@ -20,6 +20,7 @@ function isStringEmpty(text) {
  * @example
  * truncateString('Hello World', 2); => 'He'
  * truncateString('Hello world'); => throws error "Please specify number of characters to extract"
+ * truncateString(''); => throws error "text must have at least one character"
  */
 function truncateString(text, numberOfCharacters) {
   // Your code here

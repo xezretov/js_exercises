@@ -18,6 +18,6 @@ npm install
 ### Run tests
 Run checks by exercises. For example, if you're doing exercises 1 and want to check your results run the following command:
 ```shell
-npm run test -- @1
+npm run test -- -- grep @1
 ```
 If you want to run check the results for exercises 2, pass @2 instead of @1.

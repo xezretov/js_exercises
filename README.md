@@ -15,9 +15,16 @@ Next. Install necessary packages by running the following command in your termin
 npm install
 ```
 
-### Run tests
-Run checks by exercises. For example, if you're doing exercises 1 and want to check your results run the following command:
-```shell
-npm run test -- -- grep @1
-```
-If you want to run check the results for exercises 2, pass @2 instead of @1.
+### Fork the repository
+![alt text](image.png)
+
+### Clone the repository to your local machine
+![alt text](image-1.png)
+
+### Complete the tasks in `src` folder
+1. Create a separate branch from `main`.
+2. Complete tasks.
+3. Commit your changes.
+4. Push your changes.
+5. Open pull request on GitHub.
+6. Send the link to your pull request to us.

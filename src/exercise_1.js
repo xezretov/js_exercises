@@ -9,7 +9,12 @@
  * isStringEmpty(); => throws error "text must be defined"
  */
 function isStringEmpty(text) {
-  // Your code here
+  if(text === undefined || text === null) {
+    throw new Error('text must be defined');
+  }
+
+  let checkText = text.trim();
+  return checkText.length == 0;
 }
 
 /**
@@ -23,10 +28,19 @@ function isStringEmpty(text) {
  * truncateString(''); => throws error "text must have at least one character"
  */
 function truncateString(text, numberOfCharacters) {
-  // Your code here
+  if (typeof text !== 'string' || text.length === 0) {
+    throw new Error("text must have at least one character");
+  }
+
+  if (numberOfCharacters === undefined) {
+    throw new Error("Please specify number of characters to extract");
+  }
+
+  return text.substring(0, numberOfCharacters);
 }
 
-/**
+
+/**`
  * Write a function to create social media post hash tag
  * @param {String} text 
  * @returns {String}
@@ -38,12 +52,26 @@ function truncateString(text, numberOfCharacters) {
  * createHashTag('   '); => throws error "Text should have at least three characters"
  */
 function createHashTag(text) {
-  // Your code here
+  if (!text || text.trim().length < 3) {
+    throw new Error("Text should have at least three characters");
+  }
+
+  const words = text.trim().toLowerCase().split(" ");
+  const hashTag = words.reduce((acc, word, index) => {
+    if (index === 0) {
+      return word;
+    }
+    return `${acc}${word.charAt(0).toUpperCase()}${word.slice(1)}`;
+  }, "");
+
+  return `#${hashTag}`;
 }
 
-/**
+
+
+ /**
  * Write a function to format phone number as '+998 99 777 66 55'
- * @param {Number} phoneNumber 
+ * @param {Number|String} phoneNumber 
  * @returns {String}
  * @throws {Error} 'Phone number must be either 9 or 12 characters long'
  * @example
@@ -54,8 +82,19 @@ function createHashTag(text) {
  * formatPhoneNumber(); => throws error "Phone number must be either 9 or 12 characters long"
  */
 function formatPhoneNumber(phoneNumber) {
-  // Your code here
+  if (!phoneNumber) {
+    throw new Error('Phone number must be either 9 or 12 characters long');
+  }
+  if (![9, 12].includes(phoneNumber.toString().length)) {
+    throw new Error('Phone number must be either 9 or 12 characters long');
+  }
+  const format = phoneNumber.toString().length === 12
+    ? `+${phoneNumber.toString().slice(0, 3)} ${phoneNumber.toString().slice(3, 5)} ${phoneNumber.toString().slice(5, 8)} ${phoneNumber.toString().slice(8, 10)} ${phoneNumber.toString().slice(10)}`
+    : `+998 ${phoneNumber.toString().slice(0, 2)} ${phoneNumber.toString().slice(2, 5)} ${phoneNumber.toString().slice(5, 7)} ${phoneNumber.toString().slice(7)}`;
+  return format;
 }
+
+
 
 /**
  * Write a function that transforms text to different cases
@@ -66,11 +105,26 @@ function formatPhoneNumber(phoneNumber) {
  * changeTextCase('Hello World', 'camel'); => 'helloWorld'
  * changeTextCase('Hello World', 'kebab'); => 'hello-world'
  * changeTextCase('Hello World', 'snake'); => 'hello_world'
- * 
  */
 function changeTextCase(text, caseName) {
-  // Your code here
+  const words = text.toLowerCase().split(' ');
+
+  if (caseName === 'camel') {
+    return words.map((word, index) => {
+      if (index === 0) return word;
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join('');
+  } else if (caseName === 'kebab') {
+    return words.join('-');
+  } else if (caseName === 'snake') {
+    return words.join('_');
+  } else {
+    return text;
+  }
 }
+
+
+
 
 /**
  * Write a function to replace a given word in the text with the replacement word
@@ -86,7 +140,8 @@ function changeTextCase(text, caseName) {
  * 'Winnie-the-Puff (also known as Edward Bear, Puff Bear or simply Puff) is a fictional anthropomorphic teddy bear created by English author A. A. Milne and English illustrator E. H. Shepard. Winnie-the-Puff first appeared by name in a children's story commissioned by London's Evening News for Christmas Eve 1925. The character is inspired by a stuffed toy that Milne had bought for his son Christopher Robin in Harrods department store, and a bear they had viewed at London Zoo.'
  */
 function replaceWordInText(text, word, replacement) {
-  // Your code here
+  const regex = new RegExp(`\\b${word}\\b`, 'g');
+  return text.replace(regex, replacement);
 }
 
 /**
@@ -99,7 +154,9 @@ function replaceWordInText(text, word, replacement) {
  * extractPriceFromText('There were no apples left in the shop'); => 'No matching price was found'
  */
 function extractPriceFromText(text) {
-  // Your code here
+  const regex = /\$\d+(\.\d+)?/; 
+  const match = text.match(regex);
+  return match ? parseFloat(match[0].slice(1)) : 'No matching price was found';
 }
 
 module.exports = {
